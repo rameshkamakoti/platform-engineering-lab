@@ -6,6 +6,8 @@ company = "Ramesh Lab"
 experience = 20
 cloud_platform = "AWS"
 containerization = "Kubernetes"
+devops = "CI/CD"
+scripting = "python"
 
 print("=======================================")
 print("Platform Engineer profile")
@@ -19,5 +21,7 @@ print(f"Company: {company}")
 print(f"Experience: {experience} years")
 print(f"Cloud Platform: {cloud_platform}")
 print(f"Containerization: {containerization}")
+print(f"DevOps: {devops}")
+print(f"Scripting: {scripting}")
 
 print("Profile loaded successfully")
