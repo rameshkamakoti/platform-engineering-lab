@@ -9,7 +9,7 @@ spec:
   project: default
 
   source:
-    repoURL: git@github.com:rameshkamakoti/platform-engineering-lab.git
+    repoURL: https://github.com/rameshkamakoti/platform-engineering-lab.git
     targetRevision: main
     path: 02-aws-crossplane-platform/applications/payment-api/payment-api-chart
 
