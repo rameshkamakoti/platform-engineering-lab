@@ -1,0 +1,40 @@
+fullnameOverride: payment-api
+replicaCount: 3
+
+image:
+  repository: 777929922779.dkr.ecr.us-east-2.amazonaws.com/payment-api
+  tag: "v1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+readinessProbe:
+  path: /health
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+livenessProbe:
+  path: /health
+  initialDelaySeconds: 15
+  periodSeconds: 20
+
+config:
+  appEnv: dev
+  logLevel: INFO
+
+secret:
+  dbPassword: "demo-password"
