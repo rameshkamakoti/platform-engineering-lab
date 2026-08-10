@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: payment-api
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: git@github.com:rameshkamakoti/platform-engineering-lab.git
+    targetRevision: main
+    path: 02-aws-crossplane-platform/applications/payment-api/payment-api-chart
+
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: payments
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
