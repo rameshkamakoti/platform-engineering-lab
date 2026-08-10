@@ -1,0 +1,10 @@
+apiVersion: platform.example.com/v1alpha1
+kind: AppBucket
+
+metadata:
+  name: payment-api-storage-777929922779
+  namespace: payments
+
+spec:
+  environment: dev
+  region: us-east-2

@@ -1,0 +1,14 @@
+apiVersion: s3.aws.m.upbound.io/v1beta1
+kind: Bucket
+
+metadata:
+  name: platform-crossplane-lab-777929922779
+  namespace: crossplane-system
+
+spec:
+  forProvider:
+    region: us-east-2
+
+  providerConfigRef:
+    kind: ProviderConfig
+    name: default

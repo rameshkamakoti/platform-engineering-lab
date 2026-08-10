@@ -1,0 +1,41 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+
+metadata:
+  name: appbuckets.platform.example.com
+
+spec:
+  scope: Namespaced
+
+  group: platform.example.com
+
+  names:
+    kind: AppBucket
+    plural: appbuckets
+
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+
+      schema:
+        openAPIV3Schema:
+          type: object
+
+          properties:
+            spec:
+              type: object
+
+              properties:
+                environment:
+                  type: string
+                  enum:
+                    - dev
+                    - prod
+
+                region:
+                  type: string
+                  default: us-east-2
+
+              required:
+                - environment

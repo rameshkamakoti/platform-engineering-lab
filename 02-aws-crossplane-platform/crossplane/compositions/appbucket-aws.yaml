@@ -1,0 +1,48 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+
+metadata:
+  name: appbucket-aws
+
+spec:
+  compositeTypeRef:
+    apiVersion: platform.example.com/v1alpha1
+    kind: AppBucket
+
+  mode: Pipeline
+
+  pipeline:
+    - step: create-s3-bucket
+      functionRef:
+        name: function-patch-and-transform
+
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+
+        resources:
+          - name: s3-bucket
+
+            base:
+              apiVersion: s3.aws.m.upbound.io/v1beta1
+              kind: Bucket
+
+              metadata:
+                namespace: crossplane-system
+
+              spec:
+                forProvider:
+                  region: us-east-2
+
+                providerConfigRef:
+                  kind: ProviderConfig
+                  name: default
+
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.name
+                toFieldPath: metadata.name
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.region
+                toFieldPath: spec.forProvider.region
