@@ -1,3 +1,5 @@
+{{- if .Values.autoscaling.enabled }}
+
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 
@@ -11,8 +13,8 @@ spec:
     kind: Deployment
     name: {{ include "payment-api-chart.fullname" . }}
 
-  minReplicas: 2
-  maxReplicas: 5
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
 
   metrics:
     - type: Resource
@@ -20,4 +22,6 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50
+          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+
+{{- end }}
